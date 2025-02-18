@@ -668,9 +668,9 @@ static int lib_drawTexture(lua_State* L)
     return 0;
 }
 /*
-RenderSimpleTexture(tex, blend, pos, rect, rot, scale,color)
+RenderTextureRect(tex, blend, pos, rect, rot, scale, color)
 */
-static int lib_drawSimpleTexture(lua_State* L) 
+static int lib_drawTextureRect(lua_State* L) 
 {
     validate_render_scope();
 
@@ -678,21 +678,31 @@ static int lib_drawSimpleTexture(lua_State* L)
     LuaSTGPlus::BlendMode blend = LuaSTGPlus::TranslateBlendMode(L, 2);
     Core::Vector2F* const pos = LuaSTGPlus::LuaWrapper::Vector2Wrapper::Cast(L, 3);
     Core::RectF* const uvrect = LuaSTGPlus::LuaWrapper::RectWrapper::Cast(L, 4);
-    const float rot = (float)luaL_optnumber(L, 5, 0.0f) * L_DEG_TO_RAD;
-    Core::Vector2F* const scale = LuaSTGPlus::LuaWrapper::Vector2Wrapper::Cast(L, 6);
-    Core::Color4B* tColors[4];
-    if (lua_gettop(L) == 10){
-        tColors[0] = LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 7);
-        tColors[1] = LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 8);
-        tColors[2] = LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 9);
-        tColors[3] = LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 10);
+    const float rot = (float)luaL_optnumber(L, 5, 0) * L_DEG_TO_RAD;
+    Core::Vector2F scale{1.f, 1.f};
+    if (lua_gettop(L) >= 6)
+    {
+        scale = *LuaSTGPlus::LuaWrapper::Vector2Wrapper::Cast(L, 6);
     }
-    else{
-        
-        tColors[0] = LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 7);
-        tColors[1] = LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 7);
-        tColors[2] = LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 7);
-        tColors[3] = LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 7);
+    Core::Color4B tColors[4]{
+        {255, 255, 255, 255},
+        {255, 255, 255, 255},
+        {255, 255, 255, 255},
+        {255, 255, 255, 255},
+    };
+    if (lua_gettop(L) >= 7)
+    {
+        tColors[0] = *LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 7);
+        tColors[1] = *LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 7);
+        tColors[2] = *LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 7);
+        tColors[3] = *LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 7);
+    }
+    else if (lua_gettop(L) >= 10)
+    {
+        tColors[0] = *LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 7);
+        tColors[1] = *LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 8);
+        tColors[2] = *LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 9);
+        tColors[3] = *LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 10);
     }
     
 
@@ -708,17 +718,17 @@ static int lib_drawSimpleTexture(lua_State* L)
     float const uscale = 1.0f / (float)size.x;
     float const vscale = 1.0f / (float)size.y;
     Core::RectF const rect = Core::RectF(
-        (-w_2) * scale->x,
-        (-h_2) * scale->y,
-        (w_2) * scale->x,
-        (h_2) * scale->y
+        (-w_2) * scale.x,
+        (-h_2) * scale.y,
+        (w_2) * scale.x,
+        (h_2) * scale.y
     );
 
     Core::Graphics::IRenderer::DrawVertex vert[4] = {
-        Core::Graphics::IRenderer::DrawVertex(rect.a.x, rect.a.y, 0.0f, uvrect->a.x*uscale, uvrect->b.y*vscale, tColors[0]->color()),
-        Core::Graphics::IRenderer::DrawVertex(rect.b.x, rect.a.y, 0.0f, uvrect->b.x*uscale, uvrect->b.y*vscale, tColors[1]->color()),
-        Core::Graphics::IRenderer::DrawVertex(rect.b.x, rect.b.y, 0.0f, uvrect->b.x*uscale, uvrect->a.y*vscale, tColors[2]->color()),
-        Core::Graphics::IRenderer::DrawVertex(rect.a.x, rect.b.y, 0.0f, uvrect->a.x*uscale, uvrect->a.y*vscale, tColors[3]->color()),
+        Core::Graphics::IRenderer::DrawVertex(rect.a.x, rect.a.y, 0.0f, uvrect->a.x*uscale, uvrect->b.y*vscale, tColors[0].color()),
+        Core::Graphics::IRenderer::DrawVertex(rect.b.x, rect.a.y, 0.0f, uvrect->b.x*uscale, uvrect->b.y*vscale, tColors[1].color()),
+        Core::Graphics::IRenderer::DrawVertex(rect.b.x, rect.b.y, 0.0f, uvrect->b.x*uscale, uvrect->a.y*vscale, tColors[2].color()),
+        Core::Graphics::IRenderer::DrawVertex(rect.a.x, rect.b.y, 0.0f, uvrect->a.x*uscale, uvrect->a.y*vscale, tColors[3].color()),
     };
 
 
@@ -1112,7 +1122,7 @@ static luaL_Reg const lib_compat[] = {
     { "Render3D", &lib_drawSprite3D },
     { "RenderAnimation", &lib_drawSpriteSequence },
     { "RenderTexture", &lib_drawTexture },
-    { "RenderSimpleTexture", &lib_drawSimpleTexture },
+    { "RenderTextureRect", &lib_drawTextureRect },
     { "RenderMesh", &lib_drawMesh },
     { "RenderModel", &lib_drawModel },
     { "SetFog", &compat_SetFog },
