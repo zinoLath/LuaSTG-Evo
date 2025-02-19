@@ -690,19 +690,19 @@ static int lib_drawTextureRect(lua_State* L)
         {255, 255, 255, 255},
         {255, 255, 255, 255},
     };
-    if (lua_gettop(L) >= 7)
-    {
-        tColors[0] = *LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 7);
-        tColors[1] = *LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 7);
-        tColors[2] = *LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 7);
-        tColors[3] = *LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 7);
-    }
-    else if (lua_gettop(L) >= 10)
+    if (lua_gettop(L) >= 10)
     {
         tColors[0] = *LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 7);
         tColors[1] = *LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 8);
         tColors[2] = *LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 9);
         tColors[3] = *LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 10);
+    }
+    else if (lua_gettop(L) >= 7)
+    {
+        tColors[0] = *LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 7);
+        tColors[1] = *LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 7);
+        tColors[2] = *LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 7);
+        tColors[3] = *LuaSTGPlus::LuaWrapper::ColorWrapper::Cast(L, 7);
     }
     
 
