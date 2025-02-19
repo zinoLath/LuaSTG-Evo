@@ -13,6 +13,24 @@ LuaSTG::GameObjectMember LuaSTG::MapGameObjectMember(const char* key) {
           switch(key[2]) {
             case '\0':
               return LuaSTG::GameObjectMember::_A;
+            case 'c':
+              switch(key[3]) {
+                case 'c':
+                  switch(key[4]) {
+                    case 'e':
+                      switch(key[5]) {
+                        case 'l':
+                          switch(key[6]) {
+                            case '\0':
+                              return LuaSTG::GameObjectMember::VACCEL;
+                          }
+                          break;
+                      }
+                      break;
+                  }
+                  break;
+              }
+              break;
             case 'n':
               switch(key[3]) {
                 case 'g':
@@ -85,6 +103,20 @@ LuaSTG::GameObjectMember LuaSTG::MapGameObjectMember(const char* key) {
               return LuaSTG::GameObjectMember::_G;
           }
           break;
+        case 'p':
+          switch(key[2]) {
+            case 'o':
+              switch(key[3]) {
+                case 's':
+                  switch(key[4]) {
+                    case '\0':
+                      return LuaSTG::GameObjectMember::VPOS;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
         case 'r':
           switch(key[2]) {
             case '\0':
@@ -93,6 +125,24 @@ LuaSTG::GameObjectMember LuaSTG::MapGameObjectMember(const char* key) {
           break;
         case 's':
           switch(key[2]) {
+            case 'c':
+              switch(key[3]) {
+                case 'a':
+                  switch(key[4]) {
+                    case 'l':
+                      switch(key[5]) {
+                        case 'e':
+                          switch(key[6]) {
+                            case '\0':
+                              return LuaSTG::GameObjectMember::VVSCALE;
+                          }
+                          break;
+                      }
+                      break;
+                  }
+                  break;
+              }
+              break;
             case 'p':
               switch(key[3]) {
                 case 'e':
@@ -113,30 +163,26 @@ LuaSTG::GameObjectMember LuaSTG::MapGameObjectMember(const char* key) {
               break;
           }
           break;
-      }
-      break;
-    case 'a':
-      switch(key[1]) {
-        case '\0':
-          return LuaSTG::GameObjectMember::A;
-        case 'c':
+        case 'v':
           switch(key[2]) {
-            case 'c':
+            case 'e':
               switch(key[3]) {
-                case 'e':
+                case 'l':
                   switch(key[4]) {
-                    case 'l':
-                      switch(key[5]) {
-                        case '\0':
-                          return LuaSTG::GameObjectMember::ACCEL;
-                      }
-                      break;
+                    case '\0':
+                      return LuaSTG::GameObjectMember::VVEL;
                   }
                   break;
               }
               break;
           }
           break;
+      }
+      break;
+    case 'a':
+      switch(key[1]) {
+        case '\0':
+          return LuaSTG::GameObjectMember::A;
         case 'g':
           switch(key[2]) {
             case '\0':
@@ -475,16 +521,6 @@ LuaSTG::GameObjectMember LuaSTG::MapGameObjectMember(const char* key) {
               break;
           }
           break;
-        case 'o':
-          switch(key[2]) {
-            case 's':
-              switch(key[3]) {
-                case '\0':
-                  return LuaSTG::GameObjectMember::POS;
-              }
-              break;
-          }
-          break;
       }
       break;
     case 'r':
@@ -541,24 +577,6 @@ LuaSTG::GameObjectMember LuaSTG::MapGameObjectMember(const char* key) {
       break;
     case 's':
       switch(key[1]) {
-        case 'c':
-          switch(key[2]) {
-            case 'a':
-              switch(key[3]) {
-                case 'l':
-                  switch(key[4]) {
-                    case 'e':
-                      switch(key[5]) {
-                        case '\0':
-                          return LuaSTG::GameObjectMember::SCALE;
-                      }
-                      break;
-                  }
-                  break;
-              }
-              break;
-          }
-          break;
         case 't':
           switch(key[2]) {
             case 'a':
@@ -607,16 +625,6 @@ LuaSTG::GameObjectMember LuaSTG::MapGameObjectMember(const char* key) {
       break;
     case 'v':
       switch(key[1]) {
-        case 'e':
-          switch(key[2]) {
-            case 'l':
-              switch(key[3]) {
-                case '\0':
-                  return LuaSTG::GameObjectMember::VEL;
-              }
-              break;
-          }
-          break;
         case 's':
           switch(key[2]) {
             case 'c':

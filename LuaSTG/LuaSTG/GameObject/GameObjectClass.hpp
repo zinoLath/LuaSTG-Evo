@@ -25,8 +25,7 @@ namespace LuaSTGPlus
 				uint32_t IsDefaultRender : 1;
 				uint32_t IsDefaultTrigger : 1;
 				uint32_t IsDefaultLegacyKill : 1;
-				uint32_t IsRenderClass : 1;;
-				uint32_t IsExFieldClass : 1;
+				uint32_t IsRenderClass : 1;
 			};
 			uint32_t __Value{};
 		};
