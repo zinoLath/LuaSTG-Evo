@@ -719,16 +719,16 @@ static int lib_drawTextureRect(lua_State* L)
     float const vscale = 1.0f / (float)size.y;
     Core::RectF const rect = Core::RectF(
         (-w_2) * scale.x,
-        (-h_2) * scale.y,
+        (h_2) * scale.y,
         (w_2) * scale.x,
-        (h_2) * scale.y
+        (-h_2) * scale.y
     );
 
     Core::Graphics::IRenderer::DrawVertex vert[4] = {
-        Core::Graphics::IRenderer::DrawVertex(rect.a.x, rect.a.y, 0.0f, uvrect->a.x*uscale, uvrect->b.y*vscale, tColors[0].color()),
-        Core::Graphics::IRenderer::DrawVertex(rect.b.x, rect.a.y, 0.0f, uvrect->b.x*uscale, uvrect->b.y*vscale, tColors[1].color()),
-        Core::Graphics::IRenderer::DrawVertex(rect.b.x, rect.b.y, 0.0f, uvrect->b.x*uscale, uvrect->a.y*vscale, tColors[2].color()),
-        Core::Graphics::IRenderer::DrawVertex(rect.a.x, rect.b.y, 0.0f, uvrect->a.x*uscale, uvrect->a.y*vscale, tColors[3].color()),
+        Core::Graphics::IRenderer::DrawVertex(rect.a.x, rect.a.y, 0.0f, uvrect->a.x*uscale, uvrect->a.y*vscale, tColors[0].color()),
+        Core::Graphics::IRenderer::DrawVertex(rect.b.x, rect.a.y, 0.0f, uvrect->b.x*uscale, uvrect->a.y*vscale, tColors[1].color()),
+        Core::Graphics::IRenderer::DrawVertex(rect.b.x, rect.b.y, 0.0f, uvrect->b.x*uscale, uvrect->b.y*vscale, tColors[2].color()),
+        Core::Graphics::IRenderer::DrawVertex(rect.a.x, rect.b.y, 0.0f, uvrect->a.x*uscale, uvrect->b.y*vscale, tColors[3].color()),
     };
 
 
