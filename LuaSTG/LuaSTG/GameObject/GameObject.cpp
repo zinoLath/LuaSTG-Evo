@@ -593,17 +593,29 @@ namespace LuaSTGPlus
             else
                 lua_pushnumber(L, rot * L_RAD_TO_DEG);
             return 1;
-        case LuaSTG::GameObjectMember::VPOS:
+        case LuaSTG::GameObjectMember::POS:
+            if (luaclass.IsExFieldClass)
             LuaWrapper::Vector2Wrapper::CreateAndPush(L, Core::Vector2(x, y));
+            else
+                return_default(L);
             return 1;
-        case LuaSTG::GameObjectMember::VVEL:
-            LuaWrapper::Vector2Wrapper::CreateAndPush(L, Core::Vector2(vx, vy));
+        case LuaSTG::GameObjectMember::VEL:
+            if (luaclass.IsExFieldClass)
+                LuaWrapper::Vector2Wrapper::CreateAndPush(L, Core::Vector2(vx, vy));
+            else
+                return_default(L);
             return 1;
-        case LuaSTG::GameObjectMember::VACCEL:
-            LuaWrapper::Vector2Wrapper::CreateAndPush(L, Core::Vector2(ax, vy));
+        case LuaSTG::GameObjectMember::ACCEL:
+            if (luaclass.IsExFieldClass)
+                LuaWrapper::Vector2Wrapper::CreateAndPush(L, Core::Vector2(ax, vy));
+            else
+                return_default(L);
             return 1;
-        case LuaSTG::GameObjectMember::VVSCALE:
-            LuaWrapper::Vector2Wrapper::CreateAndPush(L, Core::Vector2(hscale, vscale));
+        case LuaSTG::GameObjectMember::SCALE:
+            if (luaclass.IsExFieldClass)
+                LuaWrapper::Vector2Wrapper::CreateAndPush(L, Core::Vector2(hscale, vscale));
+            else
+                return_default(L);
             return 1;
 
             // 碰撞体
@@ -850,30 +862,63 @@ namespace LuaSTGPlus
                 }
             } while (false);
             return 0;  
-        case LuaSTG::GameObjectMember::VPOS:
+        case LuaSTG::GameObjectMember::POS:
             {
-                Core::Vector2F* const pos = LuaWrapper::Vector2Wrapper::Cast(L, 3);
-                x = pos->x;
-                y = pos->y;
-            } return 0;
-        case LuaSTG::GameObjectMember::VVEL:
+                if (luaclass.IsExFieldClass)
+                {
+                    Core::Vector2F* const pos = LuaWrapper::Vector2Wrapper::Cast(L, 3);
+                    x = pos->x;
+                    y = pos->y;
+                }
+                else
+                    lua_rawset(L, 1);
+                return 0;
+            }
+        case LuaSTG::GameObjectMember::VEL:
             {
-                Core::Vector2F* const vel = LuaWrapper::Vector2Wrapper::Cast(L, 3);
-                vx = vel->x;
-                vy = vel->y;
-            } return 0;
-        case LuaSTG::GameObjectMember::VACCEL:
+                if (luaclass.IsExFieldClass)
+                {
+                    Core::Vector2F* const vel = LuaWrapper::Vector2Wrapper::Cast(L, 3);
+                    vx = vel->x;
+                    vy = vel->y;
+                }
+                else
+                    lua_rawset(L, 1);
+                return 0;
+            }
+        case LuaSTG::GameObjectMember::ACCEL:
             {
-                Core::Vector2F* const accel = LuaWrapper::Vector2Wrapper::Cast(L, 3);
-                ax = accel->x;
-                ay = accel->y;
-            } return 0;
-        case LuaSTG::GameObjectMember::VVSCALE:
+                if (luaclass.IsExFieldClass)
+                {
+                    Core::Vector2F* const accel = LuaWrapper::Vector2Wrapper::Cast(L, 3);
+                    ax = accel->x;
+                    ay = accel->y;
+                }
+                else
+                    lua_rawset(L, 1);
+                return 0;
+            }
+        case LuaSTG::GameObjectMember::SCALE:
             {
-                Core::Vector2F* const scale = LuaWrapper::Vector2Wrapper::Cast(L, 3);
-                hscale = scale->x;
-                vscale = scale->y;
-            } return 0;
+                if (luaclass.IsExFieldClass)
+                {
+                    if(lua_isnumber(L, 3))
+                    {
+                        lua_Number const scale_ = luaL_checknumber(L, 3);
+                        hscale = scale_;
+                        vscale = scale_;
+                    }
+                    else
+                    {
+                        Core::Vector2F* const scale = LuaWrapper::Vector2Wrapper::Cast(L, 3);
+                        hscale = scale->x;
+                        vscale = scale->y;
+                    }
+                }
+                else
+                    lua_rawset(L, 1);
+                return 0;
+            }
 
         case LuaSTG::GameObjectMember::GROUP:
             do {

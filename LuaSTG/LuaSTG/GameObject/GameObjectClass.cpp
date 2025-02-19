@@ -5,6 +5,7 @@ namespace LuaSTGPlus
 {
 	constexpr char const IS_CLASS[] = "is_class";
 	constexpr char const IS_RENDER_CLASS[] = ".render";
+	constexpr char const IS_EXFIELD_CLASS[] = ".exfield";
 	constexpr char const DEFAULT_FUNCTION[] = "default_function";
 	
 	bool GameObjectClass::CheckClassClass(lua_State* L, int index)
@@ -47,6 +48,8 @@ namespace LuaSTGPlus
 		// render class
 		lua_getfield(L, index, IS_RENDER_CLASS);			// ??? class ??? ? 
 		IsRenderClass = lua_to_uint8_boolean(L, -1);		// ??? class ??? b 
+		lua_getfield(L, index, IS_EXFIELD_CLASS);			// ??? class ??? ? 
+		IsExFieldClass = lua_to_uint8_boolean(L, -1);		// ??? class ??? b 
 		lua_pop(L, 1);										// ??? class ??? 
 		
 		return true;
