@@ -1413,6 +1413,20 @@ LuaSTG::RectMember LuaSTG::MapRectMember(const char* key) {
               break;
           }
           break;
+        case 'o':
+          switch(key[2]) {
+            case 'p':
+              switch(key[3]) {
+                case 'y':
+                  switch(key[4]) {
+                    case '\0':
+                      return LuaSTG::RectMember::m_copy;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
       }
       break;
     case 'd':
@@ -1673,6 +1687,24 @@ LuaSTG::Vector2Member LuaSTG::MapVector2Member(const char* key) {
           break;
       }
       break;
+    case 'c':
+      switch(key[1]) {
+        case 'o':
+          switch(key[2]) {
+            case 'p':
+              switch(key[3]) {
+                case 'y':
+                  switch(key[4]) {
+                    case '\0':
+                      return LuaSTG::Vector2Member::m_copy;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+      }
+      break;
     case 'x':
       switch(key[1]) {
         case '\0':
@@ -1767,6 +1799,24 @@ LuaSTG::Vector3Member LuaSTG::MapVector3Member(const char* key) {
                           break;
                       }
                       break;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+      }
+      break;
+    case 'c':
+      switch(key[1]) {
+        case 'o':
+          switch(key[2]) {
+            case 'p':
+              switch(key[3]) {
+                case 'y':
+                  switch(key[4]) {
+                    case '\0':
+                      return LuaSTG::Vector3Member::m_copy;
                   }
                   break;
               }
@@ -1875,6 +1925,24 @@ LuaSTG::Vector4Member LuaSTG::MapVector4Member(const char* key) {
                           break;
                       }
                       break;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+      }
+      break;
+    case 'c':
+      switch(key[1]) {
+        case 'o':
+          switch(key[2]) {
+            case 'p':
+              switch(key[3]) {
+                case 'y':
+                  switch(key[4]) {
+                    case '\0':
+                      return LuaSTG::Vector4Member::m_copy;
                   }
                   break;
               }
@@ -2027,6 +2095,24 @@ LuaSTG::Matrix2Member LuaSTG::MapMatrix2Member(const char* key) {
           break;
       }
       break;
+    case 'c':
+      switch(key[1]) {
+        case 'o':
+          switch(key[2]) {
+            case 'p':
+              switch(key[3]) {
+                case 'y':
+                  switch(key[4]) {
+                    case '\0':
+                      return LuaSTG::Matrix2Member::m_copy;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+      }
+      break;
   }
   return LuaSTG::Matrix2Member::__NOT_FOUND;
 }
@@ -2147,6 +2233,24 @@ LuaSTG::Matrix3Member LuaSTG::MapMatrix3Member(const char* key) {
           break;
       }
       break;
+    case 'c':
+      switch(key[1]) {
+        case 'o':
+          switch(key[2]) {
+            case 'p':
+              switch(key[3]) {
+                case 'y':
+                  switch(key[4]) {
+                    case '\0':
+                      return LuaSTG::Matrix3Member::m_copy;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+      }
+      break;
   }
   return LuaSTG::Matrix3Member::__NOT_FOUND;
 }
@@ -2259,6 +2363,24 @@ LuaSTG::Matrix4Member LuaSTG::MapMatrix4Member(const char* key) {
                           break;
                       }
                       break;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+      }
+      break;
+    case 'c':
+      switch(key[1]) {
+        case 'o':
+          switch(key[2]) {
+            case 'p':
+              switch(key[3]) {
+                case 'y':
+                  switch(key[4]) {
+                    case '\0':
+                      return LuaSTG::Matrix4Member::m_copy;
                   }
                   break;
               }

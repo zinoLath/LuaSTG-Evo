@@ -118,17 +118,18 @@ namespace LuaSTG {
         f_Resize = 3,
         m_b = 4,
         m_center = 5,
-        m_dimension = 6,
-        m_height = 7,
-        m_l = 8,
-        m_lb = 9,
-        m_lt = 10,
-        m_r = 11,
-        m_ratio = 12,
-        m_rb = 13,
-        m_rt = 14,
-        m_t = 15,
-        m_width = 16,
+        m_copy = 6,
+        m_dimension = 7,
+        m_height = 8,
+        m_l = 9,
+        m_lb = 10,
+        m_lt = 11,
+        m_r = 12,
+        m_ratio = 13,
+        m_rb = 14,
+        m_rt = 15,
+        m_t = 16,
+        m_width = 17,
     };
     RectMember MapRectMember(const char* key);
 }
@@ -141,8 +142,9 @@ namespace LuaSTG {
         f_Length = 3,
         f_Normalize = 4,
         f_Normalized = 5,
-        m_x = 6,
-        m_y = 7,
+        m_copy = 6,
+        m_x = 7,
+        m_y = 8,
     };
     Vector2Member MapVector2Member(const char* key);
 }
@@ -154,9 +156,10 @@ namespace LuaSTG {
         f_Length = 2,
         f_Normalize = 3,
         f_Normalized = 4,
-        m_x = 5,
-        m_y = 6,
-        m_z = 7,
+        m_copy = 5,
+        m_x = 6,
+        m_y = 7,
+        m_z = 8,
     };
     Vector3Member MapVector3Member(const char* key);
 }
@@ -168,10 +171,11 @@ namespace LuaSTG {
         f_Length = 2,
         f_Normalize = 3,
         f_Normalized = 4,
-        m_w = 5,
-        m_x = 6,
-        m_y = 7,
-        m_z = 8,
+        m_copy = 5,
+        m_w = 6,
+        m_x = 7,
+        m_y = 8,
+        m_z = 9,
     };
     Vector4Member MapVector4Member(const char* key);
 }
@@ -182,6 +186,7 @@ namespace LuaSTG {
         f_Determinant = 1,
         f_Inverse = 2,
         f_Transpose = 3,
+        m_copy = 4,
     };
     Matrix2Member MapMatrix2Member(const char* key);
 }
@@ -192,6 +197,7 @@ namespace LuaSTG {
         f_Determinant = 1,
         f_Inverse = 2,
         f_Transpose = 3,
+        m_copy = 4,
     };
     Matrix3Member MapMatrix3Member(const char* key);
 }
@@ -202,6 +208,7 @@ namespace LuaSTG {
         f_Determinant = 1,
         f_Inverse = 2,
         f_Transpose = 3,
+        m_copy = 4,
     };
     Matrix4Member MapMatrix4Member(const char* key);
 }

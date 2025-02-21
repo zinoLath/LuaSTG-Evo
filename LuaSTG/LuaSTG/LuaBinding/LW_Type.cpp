@@ -118,6 +118,9 @@ namespace LuaSTGPlus::LuaWrapper // Rect
                 case LuaSTG::RectMember::m_dimension:
                     Vector2Wrapper::CreateAndPush(L, p->dim());
                     break;
+                case LuaSTG::RectMember::m_copy:
+                    RectWrapper::CreateAndPush(L, *p);
+                    break;
                 case LuaSTG::RectMember::f_GetPointInside:
                     lua_pushcfunction(L, GetPointInside);
                     break;
@@ -399,6 +402,9 @@ namespace LuaSTGPlus::LuaWrapper // Vector2
                 case LuaSTG::Vector2Member::f_Length:
                     lua_pushcfunction(L, Length);
                     break;
+                case LuaSTG::Vector2Member::m_copy:
+                    Vector2Wrapper::CreateAndPush(L, *p);
+                    break;
                 case LuaSTG::Vector2Member::f_Normalize:
                     lua_pushcfunction(L, Normalize);
                     break;
@@ -674,6 +680,9 @@ namespace LuaSTGPlus::LuaWrapper // Vector3
                     break;
                 case LuaSTG::Vector3Member::m_z:
                     lua_pushnumber(L, (lua_Number)p->z);
+                    break;
+                case LuaSTG::Vector3Member::m_copy:
+                    Vector3Wrapper::CreateAndPush(L, *p);
                     break;
                 case LuaSTG::Vector3Member::f_Dot:
                     lua_pushcfunction(L, Dot);
@@ -964,6 +973,9 @@ namespace LuaSTGPlus::LuaWrapper // Vector4
                 case LuaSTG::Vector4Member::m_w:
                     lua_pushnumber(L, (lua_Number)p->w);
                     break;
+                case LuaSTG::Vector4Member::m_copy:
+                    Vector4Wrapper::CreateAndPush(L, *p);
+                    break;
                 case LuaSTG::Vector4Member::f_Dot:
                     lua_pushcfunction(L, Dot);
                     break;
@@ -1238,6 +1250,9 @@ namespace LuaSTGPlus::LuaWrapper // Matrix2
                 const char* key = luaL_checkstring(L, 2);
                 switch (LuaSTG::MapMatrix2Member(key))
                 {
+                case LuaSTG::Matrix2Member::m_copy:
+                    Matrix2Wrapper::CreateAndPush(L, *p);
+                    break;
                 case LuaSTG::Matrix2Member::f_Determinant:
                     lua_pushcfunction(L, Determinant);
                     break;
@@ -1495,6 +1510,9 @@ namespace LuaSTGPlus::LuaWrapper // Matrix3
                 const char* key = luaL_checkstring(L, 2);
                 switch (LuaSTG::MapMatrix3Member(key))
                 {
+                case LuaSTG::Matrix3Member::m_copy:
+                    Matrix3Wrapper::CreateAndPush(L, *p);
+                    break;
                 case LuaSTG::Matrix3Member::f_Determinant:
                     lua_pushcfunction(L, Determinant);
                     break;
@@ -1763,6 +1781,9 @@ namespace LuaSTGPlus::LuaWrapper // Matrix4
                 const char* key = luaL_checkstring(L, 2);
                 switch (LuaSTG::MapMatrix4Member(key))
                 {
+                case LuaSTG::Matrix4Member::m_copy:
+                    Matrix4Wrapper::CreateAndPush(L, *p);
+                    break;
                 case LuaSTG::Matrix4Member::f_Determinant:
                     lua_pushcfunction(L, Determinant);
                     break;

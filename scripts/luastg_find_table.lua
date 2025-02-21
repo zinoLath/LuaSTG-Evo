@@ -146,6 +146,7 @@ local lstg_Rect = {
         E("height"    , "m_height"    ),
         E("center"    , "m_center"    ),
         E("dimension" , "m_dimension" ),
+        E("copy"      , "m_copy"         ),
         E("Resize"    , "f_Resize"    ),
         E("GetPointInside","f_GetPointInside"),
         E("IsPointInside","f_IsPointInside"),
@@ -160,6 +161,7 @@ local lstg_Vector2 = {
         -- basic
         E("x"         , "m_x"         ),
         E("y"         , "m_y"         ),
+        E("copy"      , "m_copy"         ),
         E("Dot"       , "f_Dot"       ),
         E("Length"    , "f_Length"    ),
         E("Normalize" , "f_Normalize" ),
@@ -178,6 +180,7 @@ local lstg_Vector3 = {
         E("x"         , "m_x"         ),
         E("y"         , "m_y"         ),
         E("z"         , "m_z"         ),
+        E("copy"      , "m_copy"         ),
         E("Dot"       , "f_Dot"       ),
         E("Length"    , "f_Length"    ),
         E("Normalize" , "f_Normalize" ),
@@ -196,6 +199,7 @@ local lstg_Vector4 = {
         E("y"         , "m_y"         ),
         E("z"         , "m_z"         ),
         E("w"         , "m_w"         ),
+        E("copy"      , "m_copy"         ),
         E("Dot"       , "f_Dot"       ),
         E("Length"    , "f_Length"    ),
         E("Normalize" , "f_Normalize" ),
@@ -210,6 +214,7 @@ local lstg_Matrix2 = {
     enum_name = "Matrix2Member",
     enum_entry = {
         -- basic
+        E("copy"      , "m_copy"         ),
         E("Determinant", "f_Determinant"),
         E("Inverse"    , "f_Inverse"    ),
         E("Transpose"  , "f_Transpose"  ),
@@ -223,6 +228,7 @@ local lstg_Matrix3 = {
     enum_name = "Matrix3Member",
     enum_entry = {
         -- basic
+        E("copy"      , "m_copy"         ),
         E("Determinant", "f_Determinant"),
         E("Inverse"    , "f_Inverse"    ),
         E("Transpose"  , "f_Transpose"  ),
@@ -236,6 +242,7 @@ local lstg_Matrix4 = {
     enum_name = "Matrix4Member",
     enum_entry = {
         -- basic
+        E("copy"      , "m_copy"         ),
         E("Determinant", "f_Determinant"),
         E("Inverse"    , "f_Inverse"    ),
         E("Transpose"  , "f_Transpose"  ),
