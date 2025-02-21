@@ -510,12 +510,22 @@ namespace LuaSTGPlus::LuaWrapper // Vector2
                     GETUDATA(pA, 1);
                     lua_getmetatable(L, 2);
                     luaL_getmetatable(L, Matrix2Wrapper::ClassID.data());
-                    if (lua_equal(L, -1, -2)) {
-                        lua_pop(L, 2);
+                    luaL_getmetatable(L, Matrix3Wrapper::ClassID.data());
+                    if (lua_equal(L, -2, -3)) {
+                        lua_pop(L, 3);
                         GETMATDATA(pB, 2);
                         Vector2Wrapper::CreateAndPush(L, *pA * *pB);
-                    } else {
-                        lua_pop(L, 2);
+                    }
+                    else if (lua_equal(L,-1,-3))
+                    {
+                        lua_pop(L, 3);
+                        GETMAT3DATA(pB, 2);
+                        Core::Vector3 const temp = Core::Vector3F(pA->x, pA->y, 1) * *pB;
+                        Vector2Wrapper::CreateAndPush(L, Core::Vector2F(temp.x,temp.y));
+                    }
+                    
+                    else {
+                        lua_pop(L, 3);
                         GETUDATA(pB, 2);
                         Vector2Wrapper::CreateAndPush(L, *pA * *pB);
                     }
@@ -541,11 +551,20 @@ namespace LuaSTGPlus::LuaWrapper // Vector2
                     GETUDATA(pA, 1);
                     lua_getmetatable(L, 2);
                     luaL_getmetatable(L, Matrix2Wrapper::ClassID.data());
-                    if (lua_equal(L, -1, -2)) {
+                    luaL_getmetatable(L, Matrix3Wrapper::ClassID.data());
+                    if (lua_equal(L, -2, -3)) {
                         lua_pop(L, 2);
                         GETMATDATA(pB, 2);
                         Vector2Wrapper::CreateAndPush(L, *pA / *pB);
-                    } else {
+                    }
+                    else if (lua_equal(L,-1,-3))
+                    {
+                        lua_pop(L, 3);
+                        GETMAT3DATA(pB, 2);
+                        Core::Vector3 const temp = Core::Vector3F(pA->x, pA->y, 1) / *pB;
+                        Vector2Wrapper::CreateAndPush(L, Core::Vector2F(temp.x,temp.y));
+                    }
+                    else {
                         lua_pop(L, 2);
                         GETUDATA(pB, 2);
                         Vector2Wrapper::CreateAndPush(L, *pA / *pB);
@@ -629,6 +648,7 @@ namespace LuaSTGPlus::LuaWrapper // Vector3
         {
         #define GETUDATA(p, i) Core::Vector3F* (p) = Cast(L, i);
         #define GETMATDATA(p, i) Core::Matrix3F* (p) = Matrix3Wrapper::Cast(L, i);
+        #define GETMAT4DATA(p, i) Core::Matrix4F* (p) = Matrix4Wrapper::Cast(L, i);
 
             static int Dot(lua_State* L)
             {
@@ -798,11 +818,20 @@ namespace LuaSTGPlus::LuaWrapper // Vector3
                     GETUDATA(pA, 1);
                     lua_getmetatable(L, 2);
                     luaL_getmetatable(L, Matrix3Wrapper::ClassID.data());
-                    if (lua_equal(L, -1, -2)) {
+                    luaL_getmetatable(L, Matrix4Wrapper::ClassID.data());
+                    if (lua_equal(L, -2, -3)) {
                         lua_pop(L, 2);
                         GETMATDATA(pB, 2);
                         Vector3Wrapper::CreateAndPush(L, *pA * *pB);
-                    } else {
+                    }
+                    else if (lua_equal(L,-1,-3))
+                    {
+                        lua_pop(L, 3);
+                        GETMAT4DATA(pB, 2);
+                        Core::Vector4F const temp = Core::Vector4F(pA->x, pA->y, pA->z, 1) * *pB;
+                        Vector3Wrapper::CreateAndPush(L, Core::Vector3F(temp.x,temp.y,temp.z));
+                    }
+                    else {
                         lua_pop(L, 2);
                         GETUDATA(pB, 2);
                         Vector3Wrapper::CreateAndPush(L, *pA * *pB);
@@ -829,11 +858,20 @@ namespace LuaSTGPlus::LuaWrapper // Vector3
                     GETUDATA(pA, 1);
                     lua_getmetatable(L, 2);
                     luaL_getmetatable(L, Matrix3Wrapper::ClassID.data());
-                    if (lua_equal(L, -1, -2)) {
+                    luaL_getmetatable(L, Matrix4Wrapper::ClassID.data());
+                    if (lua_equal(L, -2, -3)) {
                         lua_pop(L, 2);
                         GETMATDATA(pB, 2);
                         Vector3Wrapper::CreateAndPush(L, *pA / *pB);
-                    } else {
+                    }
+                    else if (lua_equal(L,-1,-3))
+                    {
+                        lua_pop(L, 3);
+                        GETMAT4DATA(pB, 2);
+                        Core::Vector4F const temp = Core::Vector4F(pA->x, pA->y, pA->z, 1) / *pB;
+                        Vector3Wrapper::CreateAndPush(L, Core::Vector3F(temp.x,temp.y,temp.z));
+                    }
+                    else {
                         lua_pop(L, 2);
                         GETUDATA(pB, 2);
                         Vector3Wrapper::CreateAndPush(L, *pA / *pB);
