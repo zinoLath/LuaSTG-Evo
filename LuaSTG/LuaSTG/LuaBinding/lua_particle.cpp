@@ -970,9 +970,11 @@ int lua_texparticle2d_mtNewIndex(lua_State* L)
         (*self)->extra3 = luaL_checknumber(L, 3);
         break;
     case TexParticle2DMember::u:
+        (*self)->uv.b.x = (*self)->uv.b.x + luaL_checkinteger(L, 3) - (*self)->uv.a.x;
         (*self)->uv.a.x = luaL_checkinteger(L, 3);
         break;
     case TexParticle2DMember::v:
+        (*self)->uv.b.y = (*self)->uv.b.y + luaL_checkinteger(L, 3) - (*self)->uv.a.y;
         (*self)->uv.a.y = luaL_checkinteger(L, 3);
         break;
     case TexParticle2DMember::w:
