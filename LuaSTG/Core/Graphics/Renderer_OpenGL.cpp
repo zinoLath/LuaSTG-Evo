@@ -148,7 +148,7 @@ namespace Core::Graphics
     void PostEffectShader_OpenGL::bind(GLuint engine_data, GLuint user_data)
     {
         glBindBufferBase(GL_UNIFORM_BUFFER, m_buffer_map["engine_data"].binding, engine_data);
-        glBindBufferBase(GL_UNIFORM_BUFFER, m_buffer_map["user_data"].binding, user_data);
+        // glBindBufferBase(GL_UNIFORM_BUFFER, m_buffer_map["user_data"].binding, user_data);
     }
 
     PostEffectShader_OpenGL::PostEffectShader_OpenGL(Device_OpenGL* p_device, StringView path, bool is_path_)
@@ -839,7 +839,7 @@ namespace Core::Graphics
                 break;
             case BlendState::Mul:
                 glEnable(GL_BLEND);
-                glBlendFuncSeparate(GL_DST_COLOR, GL_ZERO, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+                glBlendFuncSeparate(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
                 glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
                 break;
             case BlendState::Screen:
@@ -854,7 +854,7 @@ namespace Core::Graphics
                 break;
             case BlendState::Sub:
                 glEnable(GL_BLEND);
-                glBlendFuncSeparate(GL_ONE, GL_ONE, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+                glBlendFuncSeparate(GL_ONE, GL_ONE, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
                 glBlendEquationSeparate(GL_FUNC_SUBTRACT, GL_FUNC_ADD);
                 break;
             case BlendState::RevSub:
@@ -1072,7 +1072,7 @@ namespace Core::Graphics
             glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &w);
             glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &h);
         }
-        
+
         // if (w < 1 || h < 1)
         // {
         // 	spdlog::warn("[core] LuaSTG::Core::Renderer::postEffect exiting early, as no render target is bound!");
@@ -1224,7 +1224,7 @@ namespace Core::Graphics
             glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &w);
             glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &h);
         }
-        
+
         // if (w < 1 || h < 1)
         // {
         // 	spdlog::warn("[core] LuaSTG::Core::Renderer::postEffect exiting early, as no render target is bound!");
@@ -1254,21 +1254,7 @@ namespace Core::Graphics
         glEnableVertexAttribArray(1);
         glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(DrawVertex), (const GLvoid *)offsetof(DrawVertex, color));
         glEnableVertexAttribArray(2);
-
-        if (!p_effect->apply(this))
-        {
-            spdlog::error("[core] Cannot apply PostEffectShader variables");
-            return false;
-        }
         
-        /* upload vp matrix */ {
-            glm::mat4 mat4 = glm::orthoLH_ZO(0.0f, (float)w, 0.0f, (float)h, 0.0f, 1.0f);
-            glBindBuffer(GL_UNIFORM_BUFFER, _vp_matrix_buffer);
-            glBufferData(GL_UNIFORM_BUFFER, sizeof(mat4), &mat4, GL_STATIC_DRAW);
-        }
-
-        glBindBufferBase(GL_UNIFORM_BUFFER, 0, _vp_matrix_buffer);
-
         /* upload built-in value */ {
             float ps_cbdata[8] = {
                 (float)w, (float)h, 0.0f, 0.0f,
@@ -1277,7 +1263,23 @@ namespace Core::Graphics
             glBindBuffer(GL_UNIFORM_BUFFER, _fog_data_buffer);
             glBufferData(GL_UNIFORM_BUFFER, sizeof(ps_cbdata), &ps_cbdata, GL_STATIC_DRAW);
         }
-        glBindBufferBase(GL_UNIFORM_BUFFER, 3, _fog_data_buffer);
+        // glBindBufferBase(GL_UNIFORM_BUFFER, 3, _fog_data_buffer);
+
+        if (!p_effect->apply(this))
+        {
+            spdlog::error("[core] Cannot apply PostEffectShader variables");
+            return false;
+        }
+        
+        static_cast<PostEffectShader_OpenGL*>(p_effect)->bind(_fog_data_buffer, 0);
+        
+        /* upload vp matrix */ {
+            glm::mat4 mat4 = glm::orthoLH_ZO(0.0f, (float)w, 0.0f, (float)h, 0.0f, 1.0f);
+            glBindBuffer(GL_UNIFORM_BUFFER, _vp_matrix_buffer);
+            glBufferData(GL_UNIFORM_BUFFER, sizeof(mat4), &mat4, GL_STATIC_DRAW);
+        }
+
+        glBindBufferBase(GL_UNIFORM_BUFFER, 0, _vp_matrix_buffer);
 
         glDisable(GL_DEPTH_TEST);
         switch (blend) {
